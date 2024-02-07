@@ -1,0 +1,54 @@
+<div class="stream">
+     <div class="permissions" *ngIf="!stream">
+      <button (click)="checkPermissions()">Check the webcam permissions</button>
+      <!-- <p *ngIf="status">{{status}}</p> -->
+      
+    </div>
+    
+  </div>
+    
+     
+     
+  <div class="preview">
+   
+    <div *ngIf="stream" class="vdo">
+      <div class="cameraSwitch">
+        <div class="selectCamera">
+          <label for="cameraSelect">Select Camera:</label>
+        </div>
+        <div class="dropdown">
+          <select id="cameraSelect" [(ngModel)]="selectedCamera">
+          <option *ngFor="let camera of cameras;" [ngValue]="camera">{{ camera.label }} {{resolution}} </option>
+          </select>
+        </div>
+        <div>
+          <button class="switch" (click)="switchCamera()">Switch Camera</button>
+        </div>
+      </div>
+      
+    </div>
+     
+    <div>
+      <video #video  ></video>
+      <!-- <p>{{MediaTrackConstrain.width}}</p> -->
+      
+    </div>
+    <div class="cap" *ngIf="stream">
+      <div class="play" *ngIf="!isRecording">
+      <button *ngIf="play" (click)="pauseStream()">Pause</button>
+      <button *ngIf="!play" (click)="playStream()">Play</button>
+      </div>
+      <div *ngIf="play">
+      <button (click)="startRecording()" *ngIf="!isRecording">Start Recording</button>
+      <button (click)="stopRecording()" *ngIf="isRecording">Stop Recording</button>
+      <button (click)="downloadVideo()" *ngIf="previewVideo">Download Video</button>
+    </div>
+    </div>
+     
+    <div *ngIf="previewVideo">
+      <video #videoPlayer [src]="videoUrl" controls></video>
+      
+    </div>
+  </div>
+
+  <!-- <p *ngIf="status">{{status}}</p> -->
